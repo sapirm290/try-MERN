@@ -37,21 +37,24 @@ router.get('/getData', (req, res) => {
 // });
 // // this is our create method
 // // this method adds new data in our database
-// router.post('/putData', (req: Request, res: Response) => {
-//   let data = new Data();
-//   const { id, message } = req.body;
-//   if ((!id && id !== 0) || !message) {
-//     return res.json({
-//       success: false,
-//       error: 'INVALID INPUTS',
-//     });
-//   }
-//   data.message = message;
-//   data.id = id;
-//   data.save((err: Error) => {
-//     if (err) return res.json({ success: false, error: err });
-//     return res.json({ success: true });
-//   });
-// });
+router.post('/putData', (req, res) => {
+    let data = new Data();
+    console.log(req.body);
+    const { message, authorName, authorPhone } = req.body;
+    if (!message) {
+        return res.json({
+            success: false,
+            error: 'INVALID INPUTS',
+        });
+    }
+    data.message = message;
+    data.authorName = authorName;
+    data.authorPhone = authorPhone;
+    data.save((err) => {
+        if (err)
+            return res.json({ success: false, error: err });
+        return res.json({ success: true });
+    });
+});
 module.exports = router;
 //# sourceMappingURL=api.js.map

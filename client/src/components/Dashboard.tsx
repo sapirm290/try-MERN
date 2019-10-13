@@ -1,23 +1,26 @@
 import React from 'react'
-import { Container } from '@material-ui/core';
+import { Container, List, Paper } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-
-
+import Ride from './Ride'
+import { RideProps } from '../types';
 const useStyles = makeStyles(theme => ({
     dashboard: {
         paddingTop: theme.spacing(12),
     },
 }))
-const Dashboard = ({ rides: rides }: { rides: any }) => {
+const Dashboard = ({ rides }: { rides: Array<RideProps> }) => {
     const classes = useStyles()
-    const messages = rides.map((m: any) => <p>>{m.message}</p>)
+    const messages = rides.map((message: RideProps) => <Ride key={message._id}>{message}</Ride>)
     return (
 
         < Container className={classes.dashboard} >
-            {messages}
+            <Paper>
+                <List>
+                    {messages}
+                </List>
+            </Paper>
 
         </Container >
-
     )
 }
 

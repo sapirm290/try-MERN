@@ -1,5 +1,5 @@
 import { Response } from "express";
-
+import { RideProps } from '../types/index'
 var express = require('express');
 const mongoose = require('mongoose');
 const Data = require('./data')
@@ -41,23 +41,24 @@ router.get('/getData', (req: Request, res: Response) => {
 
 // // this is our create method
 // // this method adds new data in our database
-// router.post('/putData', (req: Request, res: Response) => {
-//   let data = new Data();
+router.post('/putData', (req: Request, res: Response) => {
+  let data = new Data();
+  console.log(req.body)
+  const { message, authorName, authorPhone }: any = req.body;
+  if (!message) {
+    return res.json({
+      success: false,
+      error: 'INVALID INPUTS',
+    });
+  }
 
-//   const { id, message } = req.body;
-
-//   if ((!id && id !== 0) || !message) {
-//     return res.json({
-//       success: false,
-//       error: 'INVALID INPUTS',
-//     });
-//   }
-//   data.message = message;
-//   data.id = id;
-//   data.save((err: Error) => {
-//     if (err) return res.json({ success: false, error: err });
-//     return res.json({ success: true });
-//   });
-// });
+  data.message = message;
+  data.authorName = authorName;
+  data.authorPhone = authorPhone;
+  data.save((err: Error) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
 
 module.exports = router;
