@@ -32,13 +32,13 @@ router.get('/getData', (req: Request, res: Response) => {
 
 // // this is our delete method
 // // this method removes existing data in our database
-// router.delete('/deleteData', (req: Request, res: Response) => {
-//   const { id } = req.body;
-//   Data.findByIdAndRemove(id, (err) => {
-//     if (err) return res.send(err);
-//     return res.json({ success: true });
-//   });
-// });
+router.delete('/deleteData', (req: Request, res: Response) => {
+  const id = req.query.id;
+  Ride.findByIdAndRemove(id, (err: any) => {
+    if (err) return res.send(err);
+    return res.json({ success: true });
+  });
+});
 
 // // this is our create method
 // // this method adds new data in our database

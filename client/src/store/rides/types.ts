@@ -1,6 +1,6 @@
-import { AddRidesAction, GetRidesAction } from './types';
 export const GET_RIDES = "GET_RIDES";
 export const ADD_RIDE = "ADD_RIDE";
+export const DELETE_RIDE = "DELETE_RIDE";
 
 
 export interface RideData {
@@ -24,8 +24,12 @@ export interface GetRidesAction {
     payload: RideData[]
 }
 
-export interface AddRidesAction {
+export interface AddRideAction {
     type: typeof ADD_RIDE
     payload: RideData
 }
-export type RidesAction = AddRidesAction | GetRidesAction
+export interface DeleteRideAction {
+    type: typeof DELETE_RIDE
+    payload: string
+}
+export type RidesAction = AddRideAction | GetRidesAction | DeleteRideAction

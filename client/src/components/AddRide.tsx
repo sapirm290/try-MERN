@@ -5,8 +5,13 @@ import { thunkGetRides, thunkAddRide } from '../store/thunks'
 import { useDispatch, } from 'react-redux'
 
 const useStyles = makeStyles(theme => ({
-    flex: {
-        display: 'flex'
+    center: {
+        textAlign: 'center'
+    },
+    input: {
+        display: 'flex',
+        maxWidth: '500px',
+        margin: 'auto'
     },
 
 }))
@@ -22,19 +27,20 @@ const AddRide = () => {
         dispatch(thunkAddRide({ authorName, authorPhone, message }))
     }
     return (
-        <Box color="secondary" p={3} >
-            <form action="">
-                <Typography variant='h4'>הוסף טרמפ</Typography>
-                <FormControl className={classes.flex}>
+        <Box color="secondary" p={3}  >
+            <form action="" className={classes.center}>
+                <Typography variant='h4' className={classes.center}>הצע טרמפ</Typography>
+                <FormControl className={classes.input}>
                     <InputLabel htmlFor="authorName">Name: </InputLabel>
                     <Input
+                        autoFocus={true}
                         onChange={e => { setAuthorName(e.target.value) }}
                         value={authorName}
                         placeholder={"your name goes here"}
                     // input={<Input name="username" />}
                     />
                 </FormControl>
-                <FormControl className={classes.flex}>
+                <FormControl className={classes.input}>
                     <InputLabel htmlFor="authorPhone">Phone: </InputLabel>
                     <Input
                         onChange={e => { setAuthorPhone(e.target.value) }}
@@ -44,7 +50,7 @@ const AddRide = () => {
                     // input={<Input name="AuthorPhone" />}
                     />
                 </FormControl>
-                <FormControl className={classes.flex}>
+                <FormControl className={classes.input}>
                     <InputLabel htmlFor="message">Message:</InputLabel>
                     <Input
                         onChange={e => { setMessage(e.target.value) }}
