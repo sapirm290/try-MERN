@@ -1,8 +1,9 @@
-import { Response } from "express";
+import express, { Request, Response } from "express";
 import { RideProps } from '../types/index'
-var express = require('express');
-const mongoose = require('mongoose');
-const Data = require('./data')
+// var express = require('express');
+// const mongoose = require('mongoose');
+import mongoose, { Document } from 'mongoose';
+import Ride from './data'
 var router = express.Router();
 const dbRoute =
   'mongodb+srv://sapir:1234@my-cluster-qfumk.mongodb.net/messages?retryWrites=true&w=majority';
@@ -13,7 +14,7 @@ db.once('open', () => console.log('connected to the database'));
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 /* GET users listing. */
 router.get('/getData', (req: Request, res: Response) => {
-  Data.find((err: Error, data: any) => {
+  Ride.find((err: Error, data: any) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: data });
   });
@@ -42,7 +43,7 @@ router.get('/getData', (req: Request, res: Response) => {
 // // this is our create method
 // // this method adds new data in our database
 router.post('/putData', (req: Request, res: Response) => {
-  let data = new Data();
+  let data = new Ride();
   console.log(req.body)
   const { message, authorName, authorPhone }: any = req.body;
   if (!message) {
@@ -57,7 +58,7 @@ router.post('/putData', (req: Request, res: Response) => {
   data.authorPhone = authorPhone;
   data.save((err: Error) => {
     if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
+    return res.json({ success: true, item: data });
   });
 });
 

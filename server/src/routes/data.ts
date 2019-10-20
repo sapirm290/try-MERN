@@ -1,18 +1,23 @@
-export { };
-// /backend/data.js
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// this will be our data base's data structure 
 const DataSchema = new Schema(
     {
-        message: String,
-        authorName: String,
-        authorPhone: String
-
+        message: {
+            type: String,
+            required: true
+        }
+        ,
+        authorName: {
+            type: String,
+        },
+        authorPhone: {
+            type: String,
+            required: true
+        }
     },
     { timestamps: true }
 );
 
-// export the new Schema so we could modify it using Node.js
-module.exports = mongoose.model("Data", DataSchema);
+export default mongoose.model("Ride", DataSchema);
