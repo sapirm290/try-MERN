@@ -10,16 +10,20 @@ import { rootReducer, AppState } from './store'
 import { connect, Provider, } from 'react-redux'
 import { createStore, applyMiddleware, Action } from 'redux'
 import thunkMiddleware, { ThunkDispatch, ThunkAction } from 'redux-thunk'
-import { any } from 'prop-types';
+import 'typeface-roboto';
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
-    secondary: green,
+    primary: {
+      main: '#3f51b5',
+    },
+    secondary: {
+      main: '#ec407a',
+    }
   },
   typography: {
     fontFamily: [
-      '"Segoe UI"',
+      // '"Segoe UI"',
       'Roboto',
       '"Helvetica Neue"',
       'Arial',
