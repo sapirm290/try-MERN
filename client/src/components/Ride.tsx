@@ -2,8 +2,8 @@ import React from 'react'
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import { DirectionsCarSharp } from '@material-ui/icons';
 import { isToday, format } from 'date-fns'
-import { RideProps } from '../types/index'
-const Ride = ({ children }: { children: RideProps }) => {
+import { RideData } from '../store/rides/types'
+const Ride = ({ children }: { children: RideData }) => {
     const { message, createdAt, authorName, authorPhone } = children
     const itemCreateDate = new Date(children.createdAt)
     const createDateForShow = isToday(itemCreateDate) ? `Today at ${format(itemCreateDate, 'HH:mm')}` : format(itemCreateDate, 'MM/dd/yyyy')

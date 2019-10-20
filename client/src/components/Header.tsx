@@ -1,7 +1,6 @@
 import React from 'react'
 import { AppBar, Typography } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import { fontWeight } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
     appbar: {

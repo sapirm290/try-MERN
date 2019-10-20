@@ -1,27 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector, connect } from 'react-redux'
+import { Action } from 'redux'
+import { ThunkDispatch, ThunkAction } from 'redux-thunk'
+import { rootReducer, AppState } from '../store'
 import { Container, List, Paper } from '@material-ui/core';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Ride from './Ride'
-import { RideProps } from '../types';
-const useStyles = makeStyles(theme => ({
-    dashboard: {
-        paddingTop: theme.spacing(12),
-    },
-}))
-const Dashboard = ({ rides }: { rides: Array<RideProps> }) => {
-    const classes = useStyles()
-    const messages = rides.map((message: RideProps) => <Ride key={message._id}>{message}</Ride>)
-    return (
+import { thunkGetRides } from '../store/thunks'
+import { RideData } from '../store/rides/types';
+import { getRides } from '../store/rides/actions'
 
-        < Container className={classes.dashboard} >
+const Dashboard = () => {
+
+    let messages = useSelector((state: AppState) => state.rides.rides)
+    let rides = messages.map((message: RideData) => <Ride key={message._id}>{message}</Ride>)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        // props.getRides()
+        dispatch(thunkGetRides())
+        return () => {
+        };
+    }, [])
+
+    return (
+        < Container >
             <Paper>
                 <List>
-                    {messages}
+                    {rides}
                 </List>
             </Paper>
-
         </Container >
     )
 }
-
 export default Dashboard

@@ -3,7 +3,14 @@ import { purple, green } from '@material-ui/core/colors';
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Header from './components/Header';
+import { Container } from '@material-ui/core';
+import AddRide from './components/AddRide';
 import Dashboard from './components/Dashboard';
+import { rootReducer, AppState } from './store'
+import { connect, Provider, } from 'react-redux'
+import { createStore, applyMiddleware, Action } from 'redux'
+import thunkMiddleware, { ThunkDispatch, ThunkAction } from 'redux-thunk'
+import { any } from 'prop-types';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,29 +30,33 @@ const theme = createMuiTheme({
     ].join(','),
   },
 });
-
-
-const App: React.FC = () => {
-  const [messages, setMessages] = useState([])
-  const getMessages = async () => {
-    const response: Response = await fetch('http://localhost:3001/api/getData')
-    const myJson = await response.json();
-    setMessages(myJson.data)
-    console.log(myJson.data)
-  }
-  useEffect(() => {
-    getMessages()
-    return () => {
-    };
-  }, [])
+// const store = createStore(rootReducer, compose(
+//   applyMiddleware(thunkMiddleware),
+//   window.devToolsExtension ? window.devToolsExtension() : f => f
+// ));
+const store = createStore(rootReducer,
+  applyMiddleware(thunkMiddleware),
+);
+const useStyles = makeStyles(theme => ({
+  dashboard: {
+    paddingTop: theme.spacing(12),
+  },
+}))
+const App: React.FC = (props: any) => {
+  const classes = useStyles()
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Header />
-        <Dashboard rides={messages} />
+        <Provider store={store}>
+          <Header />
+          <Container className={classes.dashboard} >
+            <AddRide />
+            <Dashboard />
+          </Container>
+        </Provider>
       </ThemeProvider>
     </div>
   );
 }
 
-export default App;
+export default App
